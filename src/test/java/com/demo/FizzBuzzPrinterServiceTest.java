@@ -17,11 +17,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-class FizzBuzzServiceTest {
+class FizzBuzzPrinterServiceTest {
 
-  private final FizzBuzzService fbs = new FizzBuzzService();
+  public static final String DELIMITER = " ";
+  private final FizzBuzzPrinterService fbs = new FizzBuzzPrinterService();
   private final Map<Integer, String> divisorToResultStr = new LinkedHashMap<>();
-
 
   @BeforeEach
   void setUp() {
@@ -31,28 +31,35 @@ class FizzBuzzServiceTest {
   }
 
   @Test
-  @DisplayName("Should return a string with proper values and without a space at the end of the row")
+  @DisplayName(
+      "Should return a string with proper values and without a space at the end of the row")
   void fizzBuzzIt() throws UnsupportedEncodingException {
     final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
     try (PrintStream ps = new PrintStream(buffer, true, UTF_8.name())) {
-      fbs.fizzBuzzIt(ps, 20, divisorToResultStr);
+      fbs.printFizzBuzz(ps, 20, divisorToResultStr, DELIMITER);
     }
     String result = buffer.toString(UTF_8.name());
-    String expected = "1 2 Fizz 4 Buzz Fizz 7 8 Fizz Buzz 11 Fizz 13 14 FizzBuzzJava 16 17 Fizz 19 Buzz";
+    String expected =
+        "1 2 Fizz 4 Buzz Fizz 7 8 Fizz Buzz 11 Fizz 13 14 FizzBuzzJava 16 17 Fizz 19 Buzz";
     assertEquals(expected, result);
   }
 
   @Test
-  @DisplayName("Should fail with IllegalArgumentException because got a null instead of a buffer as argument")
+  @DisplayName(
+      "Should fail with IllegalArgumentException because got a null instead of a buffer as argument")
   void fizzBuzzItGetNullInsteadOfBuffer() {
-    assertThrows(IllegalArgumentException.class, () -> fbs.fizzBuzzIt(null, 20, divisorToResultStr));
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> fbs.printFizzBuzz(null, 20, divisorToResultStr, DELIMITER));
   }
 
   @Test
-  @DisplayName("Should fail with IllegalArgumentException because got a null instead of a divisorToResultStr map")
+  @DisplayName(
+      "Should fail with IllegalArgumentException because got a null instead of a divisorToResultStr map")
   void fizzBuzzItGetNullInsteadOfDivisorToResultStrMap() throws UnsupportedEncodingException {
     try (PrintStream ps = new PrintStream(new ByteArrayOutputStream(), true, UTF_8.name())) {
-      assertThrows(IllegalArgumentException.class, () -> fbs.fizzBuzzIt(ps, 20, null));
+      assertThrows(
+          IllegalArgumentException.class, () -> fbs.printFizzBuzz(ps, 20, null, DELIMITER));
     }
   }
 
@@ -61,7 +68,7 @@ class FizzBuzzServiceTest {
   void fizzBuzzItGetNegativeRange() throws UnsupportedEncodingException {
     final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
     try (PrintStream ps = new PrintStream(buffer, true, UTF_8.name())) {
-      fbs.fizzBuzzIt(ps, -1, divisorToResultStr);
+      fbs.printFizzBuzz(ps, -1, divisorToResultStr, DELIMITER);
     }
     String result = buffer.toString(UTF_8.name());
     assertEquals("", result);
