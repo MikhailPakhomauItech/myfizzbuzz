@@ -3,15 +3,15 @@ package com.demo;
 import java.io.PrintStream;
 
 public class FizzBuzzService {
-  public void fizzBuzzIt(PrintStream out, int rate) {
+  public void fizzBuzzIt(PrintStream out, int range) {
     if (out == null) {
-      throw new IllegalArgumentException("PrintStream should be not a null!");
+      throw new IllegalArgumentException("PrintStream should not be a null!");
     }
 
     StringBuilder sb = new StringBuilder();
-    for (int i = 1; i <= rate; i++) {
+    for (int i = 1; i <= range; i++) {
       sb.append(fizzBuzz(i));
-      if (i != rate) {
+      if (i != range) {
         sb.append(" ");
       }
     }
