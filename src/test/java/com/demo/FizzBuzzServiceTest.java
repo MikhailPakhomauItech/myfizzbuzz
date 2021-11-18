@@ -4,8 +4,11 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -42,5 +45,32 @@ class FizzBuzzServiceTest {
     }
     String result = buffer.toString(UTF_8.name());
     assertEquals("", result);
+  }
+
+  @ParameterizedTest
+  @ValueSource(ints = {3, 6})
+  void fizzBuzzTestIsFizz(int i) {
+    Assertions.assertEquals("Fizz", fbs.fizzBuzz(i));
+  }
+
+  @ParameterizedTest
+  @ValueSource(ints = {5, 10})
+  void fizzBuzzTestIsBuzz(int i) {
+    Assertions.assertEquals("Buzz", fbs.fizzBuzz(i));
+  }
+
+  @ParameterizedTest
+  @ValueSource(ints = {15, 30})
+  void fizzBuzzTestIsFizzBuzz(int i) {
+    Assertions.assertEquals("FizzBuzz", fbs.fizzBuzz(i));
+  }
+
+  @ParameterizedTest
+  @ValueSource(ints = {2, 4, 7, 8, 11, 13, 14})
+  void fizzBuzzTestIsNumber(int i) {
+    String result = fbs.fizzBuzz(i);
+    Assertions.assertNotEquals("Fizz", result);
+    Assertions.assertNotEquals("Buzz", result);
+    Assertions.assertNotEquals("FizzBuzz", result);
   }
 }

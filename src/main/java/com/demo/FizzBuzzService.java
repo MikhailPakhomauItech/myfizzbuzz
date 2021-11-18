@@ -10,7 +10,7 @@ public class FizzBuzzService {
 
     StringBuilder sb = new StringBuilder();
     for (int i = 1; i <= rate; i++) {
-      sb.append(x(i));
+      sb.append(fizzBuzz(i));
       if (i != rate) {
         sb.append(" ");
       }
@@ -18,7 +18,7 @@ public class FizzBuzzService {
     out.print(sb);
   }
 
-  String x(int i) {
+  String fizzBuzz(int i) {
     if (i % 3 == 0) {
       if (i % 5 == 0) {
         return "FizzBuzz";
